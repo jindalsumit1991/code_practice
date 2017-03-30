@@ -124,6 +124,40 @@ void recursiveReverse(node **head) {
    first->next = NULL;
    *head = rest;
 }
+
+//Swap nodes without swapping data
+void swapNodes(node *head, int key1, int key2)
+{
+    node *node1, *node2, *temp, *prev1, *prev2;
+    node1 = head;
+    node2 = temp = head;
+    bool found1 = false;
+    bool found2 = false;
+    while(temp)
+    {
+        if(!found1 && temp->next->data == key1)
+        {
+            prev1 = temp;
+            node1 = temp->next;
+            found1 = true;
+        }
+        if(!found2 && temp->next->data == key2)
+        {
+            prev2 = temp;
+            node2 = temp->next;
+            found2 = true;
+        }
+        if(found1 && found2)
+            break;
+        temp = temp->next;
+    }
+    temp = node1->next;
+    prev1->next = node2;
+    prev2->next = node1;
+    node1->next = node2->next;
+    node2->next = temp;
+}
+
 int main() {
 
    node *head = NULL;
@@ -132,12 +166,17 @@ int main() {
    push(&head,3);
    push(&head,4);
    append(&head,5);
-   addAfter(&head,20,90);
+   //addAfter(&head,20,90);
    addAfter(&head,3,90);
-   printList(head);
    addBefore(&head,90,80);
+   //printList(head);
+   //reverseList(&head);
+   
+   cout << "Original list\n";
    printList(head);
-   reverseList(&head);
+
+   swapNodes(head, 3, 2);
+   cout << "\nAfter swapping:\n";
    printList(head);
    return 0;
 }

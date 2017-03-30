@@ -1,5 +1,5 @@
 #include <iostream>
-#include "SortingAlgorithm.h"
+#include "sorting/SortingAlgorithm.h"
 
 using namespace std;
 
@@ -30,7 +30,7 @@ int main() {
 
    //mergeSort(arr, 0, size-1);
    selectionSort(arr, size);
-   cout<<"\nSorted array after merge sort: ";
+   cout<<"\nSorted array : ";
    printArray(arr, size);
    cout<<endl;
 
