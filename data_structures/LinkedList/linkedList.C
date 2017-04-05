@@ -5,11 +5,9 @@ using namespace std;
 struct node {
    int data;
    node *next;
-
-   node(){}
 };
 
-typedef node* ptr;
+typedef node* head;
 
 void push(node **head, int data) {
    node *n = new node();
@@ -24,11 +22,26 @@ void push(node **head, int data) {
    }
 }
 
+int getMid(node *head)
+{
+    node *slow, *fast;
+    slow = fast = head;
+    if(!head)
+        return -1;
+
+    while(fast->next)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow->data;
+}
+
 void printList(node* head) {
    if(head == NULL)
       cout<<"List is empty"<<endl;
    else {
-      //cout<<endl<<"List is: ";
+      cout<<endl<<"List is: ";
       while(head) {
 	 if(head->next)
 	    cout<<head->data<<"->";
@@ -54,6 +67,49 @@ void append(node **head, int data) {
       temp->next = n;
    }
 }
+
+void addAfter(node **head,int after, int data) {
+   if(*head == NULL) {
+      cout<<"List is empty"<<endl;
+      return;
+   }
+   else {
+      node *n = new node();
+      n->data = data;
+      node *temp = *head;
+      while (temp) {
+	 if(temp->data == after) {
+	    n->next = temp->next;
+	    temp->next = n;
+	    return;
+	 }
+	 temp = temp->next;
+      }
+      cout<<"\nNode "<<after<<" does not exist\n"<<endl;
+   }
+}
+
+void addBefore(node **head,int before, int data) {
+   if(*head == NULL) {
+      cout<<"List is empty"<<endl;
+      return;
+   }
+   else {
+      node *n = new node();
+      n->data = data;
+      node *temp = *head;
+      while (temp->next) {
+	 if(temp->next->data == before) {
+	    n->next = temp->next;
+	    temp->next = n;
+	    return;
+	 }
+	 temp = temp->next;
+      }
+      cout<<"\nNode "<<before<<" does not exist\n"<<endl;
+   }
+}
+
 
 void reverseList(node **head) {
    node *prev = NULL;
@@ -117,74 +173,28 @@ void swapNodes(node *head, int key1, int key2)
     node2->next = temp;
 }
 
-node *sortedMerge(node *p, node *q, ptr & sorting)
-{
-    node *new_head = NULL;
-    if(!p)
-        return q;
-    if(!q)
-        return p;
-    if(p && q)
-    {
-        if(p->data <= q->data)
-        {
-            sorting = p;
-            p = sorting->next;
-        }
-        else
-        {
-            sorting = q;
-            q = sorting->next;
-        }
-    }
-    new_head = sorting;
-
-    while(p && q)
-    {
-        if(p->data < q->data)
-        {
-            sorting->next = p;
-            sorting = p;
-            p = sorting->next;
-        }
-        else
-        {
-            sorting->next = q;
-            sorting = q;
-            q = sorting->next;
-        }
-    }
-    if(!p)
-        sorting->next = q;
-    if(!q)
-        sorting->next = p;
-    return new_head;
-}
-
 int main() {
 
-   node *head1 = NULL;
-   append(&head1,1);
-   append(&head1,2);
-   append(&head1,6);
-   append(&head1,8);
-   append(&head1,10);
-   cout << "List 1: ";
-   printList(head1);
+   node *head = NULL;
+   push(&head,1);
+   push(&head,2);
+   push(&head,3);
+   push(&head,4);
+   append(&head,5);
+   append(&head,50);
+   //addAfter(&head,20,90);
+   addAfter(&head,3,90);
+   addBefore(&head,90,80);
+   //printList(head);
+   //reverseList(&head);
+   
+   cout << "Original list\n";
+   printList(head);
 
-   node *head2 = NULL;
-   append(&head2,3);
-   append(&head2,4);
-   append(&head2,5);
-   append(&head2,7);
-   append(&head2,9);
-   cout << "List 2: ";
-   printList(head2);
-   node *sorting = new node();
-   node *head3 = NULL;
-   head3 = sortedMerge(head2, head1, sorting);
-   cout << "Sorted List: ";
-   printList(head3);
+   swapNodes(head, 3, 2);
+   cout << "\nAfter swapping:\n";
+   printList(head);
 
+   cout << "Mid node is: " << getMid(head) << endl;
    return 0;
 }
