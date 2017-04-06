@@ -12,7 +12,7 @@ struct node {
 typedef node* ptr;
 
 void push(ptr &head, int data) {
-   node *n = new node();
+   ptr n = new node();
    n->data = data;
    if(head == NULL) {
       head = n;
@@ -25,37 +25,36 @@ void push(ptr &head, int data) {
 }
 
 void printList(ptr head) {
-   if(head == NULL)
-      cout<<"List is empty"<<endl;
-   else {
-      //cout<<endl<<"List is: ";
-      while(head) {
-	 if(head->next)
-	    cout<<head->data<<"->";
-	 else
-	    cout<<head->data<<"->NULL";
-	 head = head->next;
-      }
-      cout<<endl;
-      cout<<endl;
-   }
+    if(head == NULL)
+        cout<<"List is empty"<<endl;
+    else {
+        while(head) {
+            if(head->next)
+                cout<<head->data<<"->";
+            else
+                cout<<head->data<<"->NULL";
+            head = head->next;
+        }
+        cout<<endl;
+        cout<<endl;
+    }
 }
 
 void append(ptr &head, int data) {
-    node *n = new node();
+    ptr n = new node();
     n->data = data;
     n->next = NULL;
     if(head == NULL)
         head = n;
     else {
-        node *temp = head;
+        ptr temp = head;
         while(temp->next) 
             temp=temp->next;
         temp->next = n;
     }
 }
 
-node *sortedMerge(ptr p, ptr q)
+ptr sortedMerge(ptr p, ptr q)
 {
     ptr sorting, new_head;
     sorting = new_head = NULL;
@@ -137,32 +136,24 @@ void mergeSort(ptr &headref)
     headref = sortedMerge(a,b);
 }
 
-int main() {
-
-   node *head1 = NULL;
-   append(head1,1);
-   append(head1,2);
-   append(head1,6);
-   append(head1,8);
-   append(head1,10);
-   cout << "List 1: ";
-   printList(head1);
-
-   node *head2 = NULL;
-   append(head2,3);
-   append(head2,4);
-   append(head2,5);
-   append(head2,7);
-   append(head2,9);
-   cout << "List 2: ";
-   printList(head2);
-   node *head3 = NULL;
-   head3 = sortedMerge(head2, head1);
-   cout << "Sorted List: ";
-   printList(head3);
-   mergeSort(head3);
+int main() 
+{
+   ptr head = NULL;
+   append(head,3);
+   append(head,2);
+   append(head,6);
+   append(head,1);
+   append(head,10);
+   append(head,5);
+   append(head,11);
+   append(head,4);
+   append(head,60);
+   append(head,55);
+   cout << "Original List: ";
+   printList(head);
+   mergeSort(head);
    cout << "List after merge sort: ";
-   printList(head3);
+   printList(head);
 
    return 0;
 }
