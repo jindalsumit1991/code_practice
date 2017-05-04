@@ -17,7 +17,7 @@ int main()
         if(max < v[i])
             max = v[i];
     }
-    
+/*    
     int **arr = new int*[max];
     for(int i=0; i<max; i++)
     {
@@ -51,5 +51,21 @@ int main()
         }
         cout << endl;
     }
+*/
+
+    cout << endl << endl;
+
+    for(int i=0; i<max; i++)
+    {
+        for(int j=0; j<v.size(); j++)
+        {
+            if(max-v[j]-i > 0)
+                cout << "  ";
+            else
+                cout << "* ";
+        }
+        cout << endl;
+    }
     return 0;
 }
+
