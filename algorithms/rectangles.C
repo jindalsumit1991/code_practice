@@ -3,12 +3,11 @@
 using namespace std;
 
 bool checkOverlap(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2){
-    if((bx1>ax2) || (ax1>bx2) || (ay2>by1) || (ay1<by2)){
-        
-        return false;
-    }
-    
-    return true;
+	if((bx1>ax2) || (ax1>bx2) || (ay2>by1) || (ay1<by2)){
+
+		return false;
+	}
+	return true;
 }
 
 int main() {
@@ -19,4 +18,6 @@ int main() {
         cout<<"true";
     else
         cout<<"false";
+	
+	return 0;
 }

@@ -9,7 +9,7 @@ bool isSubstring(const string &str1, const string &str2){
     int l2 = str2.size();
     int j = 0;
     int i = 0;
-    for(i = 0; i<l2; i++){
+    for(i = 0; i<l2-l1; i++){
         if(str1[j] == str2[i])
             break;
     }
